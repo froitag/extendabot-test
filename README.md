@@ -25,6 +25,8 @@ npm run dev
 
 Die App läuft unter [http://localhost:3000](http://localhost:3000). Ein Klick auf **Erhöhen** speichert den neuen Wert in der Datenbank.
 
+Live: [https://clever-easy-canyon.web.extendabot.brainchimps.com](https://clever-easy-canyon.web.extendabot.brainchimps.com)
+
 ## Deploy mit Extendabot
 
 ```bash
