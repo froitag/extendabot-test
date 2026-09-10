@@ -5,7 +5,7 @@ import {
   getCounter,
   incrementCounter,
   resetCounter,
-} from "./db.ts";
+} from "./db";
 
 before(async () => {
   await resetCounter(0);
