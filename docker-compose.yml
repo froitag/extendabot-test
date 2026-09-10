@@ -1,0 +1,47 @@
+services:
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: counter
+      POSTGRES_PASSWORD: counter
+      POSTGRES_DB: counter
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U counter -d counter"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://counter:counter@postgres:5432/counter
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/counter').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 40s
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
