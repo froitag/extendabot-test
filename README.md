@@ -29,7 +29,12 @@ Die App läuft unter [http://localhost:3000](http://localhost:3000). Ein Klick a
 
 ```bash
 npx extendabot-cli login --wait
-npx extendabot-cli publish_auto --organization-id <org-id> --display-name "Counter" .
+npx extendabot-cli list_organizations
+npx extendabot-cli publish_auto \
+  --organization-id <org-id> \
+  --display-name "Counter" \
+  --auto-stop-interval-minutes 43200 \
+  .
 ```
 
 ## API
