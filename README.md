@@ -25,6 +25,13 @@ npm run dev
 
 Die App läuft unter [http://localhost:3000](http://localhost:3000). Ein Klick auf **Erhöhen** speichert den neuen Wert in der Datenbank.
 
+## Deploy mit Extendabot
+
+```bash
+npx extendabot-cli login --wait
+npx extendabot-cli publish_auto --organization-id <org-id> --display-name "Counter" .
+```
+
 ## API
 
 - `GET /api/counter` — aktuellen Wert lesen
