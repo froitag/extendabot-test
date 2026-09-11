@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "build": {
+    "context": ".",
+    "dockerfile": {
+      "base": "node:22-alpine",
+      "steps": [
+        "apk add --no-cache postgresql postgresql-contrib postgresql-client su-exec && npm ci && mkdir -p public && npm run build && rm -rf node_modules && chmod +x /app/deploy/start.sh"
+      ],
+      "command": ["/bin/sh", "/app/deploy/start.sh"]
+    },
+    "args": []
+  },
+  "run": {
+    "kind": "compose",
+    "service": "app",
+    "port": 3000,
+    "healthcheck": {
+      "path": "/api/counter",
+      "test": [
+        "CMD",
+        "node",
+        "-e",
+        "fetch('http://127.0.0.1:3000/api/counter').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      ],
+      "intervalSeconds": 5,
+      "timeoutSeconds": 5,
+      "retries": 30,
+      "startPeriodSeconds": 15
+    }
+  },
+  "env": [
+    {
+      "name": "DATABASE_URL",
+      "kind": "secret",
+      "phase": "run",
+      "required": true,
+      "comment": "Postgres in the app container. Use postgres://counter:counter@127.0.0.1:5432/counter"
+    }
+  ]
+}
