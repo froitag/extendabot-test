@@ -1,17 +1,25 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { incrementCounterAction } from "@/app/actions";
+import { useState } from "react";
 
 export function Counter({ initialValue }: { initialValue: number }) {
   const [value, setValue] = useState(initialValue);
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
-  function handleIncrement() {
-    startTransition(async () => {
-      const nextValue = await incrementCounterAction();
-      setValue(nextValue);
-    });
+  async function handleIncrement() {
+    setIsPending(true);
+    try {
+      const response = await fetch("/api/counter", { method: "POST" });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const data = (await response.json()) as { value: number };
+      setValue(data.value);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsPending(false);
+    }
   }
 
   return (
