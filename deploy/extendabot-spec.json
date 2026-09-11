@@ -5,10 +5,7 @@
     "dockerfile": {
       "base": "node:22-alpine",
       "steps": [
-        "apk add --no-cache postgresql postgresql-contrib postgresql-client su-exec",
-        "npm ci",
-        "mkdir -p public && npm run build",
-        "chmod +x /app/deploy/start.sh"
+        "apk add --no-cache postgresql postgresql-contrib postgresql-client su-exec && npm ci && mkdir -p public && npm run build && rm -rf node_modules && chmod +x /app/deploy/start.sh"
       ],
       "command": ["/bin/sh", "/app/deploy/start.sh"]
     },
