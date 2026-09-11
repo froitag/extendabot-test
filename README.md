@@ -25,6 +25,10 @@ npm run dev
 
 Die App läuft unter [http://localhost:3000](http://localhost:3000). Ein Klick auf **Erhöhen** speichert den neuen Wert in der Datenbank.
 
+Laufende Sandbox (nicht das Project): [https://clever-easy-canyon.web.extendabot.brainchimps.com](https://clever-easy-canyon.web.extendabot.brainchimps.com)
+
+Das Extendabot-**Project** „Counter“ (`glossy-silent-tide`) hat noch keine `liveUrl`. `publish_auto` legt die App in einer eigenen Compose-Sandbox an; die Box unter Sandboxes ist davon unabhängig. Es gibt kein CLI-Kommando, eine bestehende Sandbox nachträglich an das Project zu hängen.
+
 ## Deploy mit Extendabot
 
 `publish_auto` schreibt die Live-URL auf das **Project**. Eine mit `create_sandbox` erzeugte Box erscheint unter Sandboxes, nicht als Project-Deployment.
