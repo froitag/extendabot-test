@@ -3,6 +3,8 @@ set -eu
 
 export PGDATA="${PGDATA:-/var/lib/postgresql/data}"
 export DATABASE_URL="${DATABASE_URL:-postgres://counter:counter@127.0.0.1:5432/counter}"
+export HOSTNAME=0.0.0.0
+export PORT="${PORT:-3000}"
 
 mkdir -p "$PGDATA" /run/postgresql
 chown -R postgres:postgres "$PGDATA" /run/postgresql

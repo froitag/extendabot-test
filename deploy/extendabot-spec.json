@@ -29,7 +29,7 @@
       "intervalSeconds": 5,
       "timeoutSeconds": 5,
       "retries": 30,
-      "startPeriodSeconds": 90
+      "startPeriodSeconds": 15
     }
   },
   "env": [
