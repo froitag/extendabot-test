@@ -5,15 +5,10 @@
     "dockerfile": {
       "base": "node:22-alpine",
       "steps": [
-        "RUN apk add --no-cache postgresql postgresql-contrib postgresql-client su-exec",
-        "WORKDIR /app",
-        "COPY package.json package-lock.json ./",
-        "RUN npm ci",
-        "COPY . .",
-        "ENV NEXT_TELEMETRY_DISABLED=1",
-        "RUN mkdir -p public && npm run build",
-        "ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 DATABASE_URL=postgres://counter:counter@127.0.0.1:5432/counter",
-        "RUN chmod +x /app/deploy/start.sh"
+        "apk add --no-cache postgresql postgresql-contrib postgresql-client su-exec",
+        "npm ci",
+        "mkdir -p public && npm run build",
+        "chmod +x /app/deploy/start.sh"
       ],
       "command": ["/bin/sh", "/app/deploy/start.sh"]
     },
